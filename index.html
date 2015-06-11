@@ -11,64 +11,39 @@
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">	   
 		<script type="text/javascript">
 
-			$(function(){
-		
-			 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1qmMuUvHsRP7Jgs-x28lsTP3cqBF9p-i96Ra0_5qap0s/pubhtml';
+			//$(function(){
+			var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1qmMuUvHsRP7Jgs-x28lsTP3cqBF9p-i96Ra0_5qap0s/pubhtml';
+			var comments = {};
+			var commentMarker = [];
+			var person1 = {firstname:"Fiat", lastname:"", drawing:"Drawing1_small.png", map:"01-01.png"};
+			var person2 = {firstname:"Fiat", lastname:"", drawing:"Drawing2_small.png", map:"02-01.png"};
+			var person3 = {firstname:"Fiat", lastname:"", drawing:"Drawing3_small.png", map:"03-01.png"};
+			var person4 = {firstname:"Fiat", lastname:"", drawing:"Drawing4_small.png", map:"04-01.png"};
+			var person5 = {firstname:"Fiat", lastname:"", drawing:"Drawing5_small.png", map:"05-01.png"};
+			var person6 = {firstname:"Fiat", lastname:"", drawing:"Drawing6_small.png", map:"06-01.png"};
+			var person7 = {firstname:"Fiat", lastname:"", drawing:"Drawing7_small.png", map:"07-01.png"};
+			var person8 = {firstname:"Fiat", lastname:"", drawing:"Drawing8_small.png", map:"08-01.png"};
+			var person9 = {firstname:"Fiat", lastname:"", drawing:"Drawing9_small.png", map:"09-01.png"};
+			var person10 = {firstname:"Fiat", lastname:"", drawing:"Drawing10_small.png", map:"10-01.png"};
+			var person11 = {firstname:"Fiat", lastname:"", drawing:"Drawing11_small.png", map:"11-01.png"};
+			 
 			 function init() {
 				Tabletop.init( { key: public_spreadsheet_url,
 								 callback: showInfo,
 								 simpleSheet: true,
 								parseNumbers: true
 								 } )
-			  }
+			  };
 
-				
 			  function showInfo(data) {		
 				var engDesc;
 				var Japanese;
-				
-				var labels = document.getElementById("labels");
-				
-						for (i = 0; i < data.length; i++) { 
-						
-						var personnumber = 1;	
-						
-							if (data[i].Person == personnumber) {
-							
-								current = data[i];
-								var div = document.createElement('div');
-								var node = document.createTextNode("This is new.");
-								div.class = "marker";
-								div.id = "id"+i;
-								currentid = "id"+i;
-							
-								div.appendChild(node);
-								$("#labels").append(div);
-								
-								
-								var myInput = $("#"+currentid);
-								
-								engDesc = current.English;
-								Japanese = current.Japanese;
-								var xposition = current.xposition+"%";
-								var yposition = current.yposition+"%";
-								var empty = document.getElementById(currentid);
-								empty.innerHTML = "<i class=\"marker-content fa fa-arrow-circle-down\" style=\"color:white\"></i>";
-								empty.style.position = "absolute";
-								empty.style.left = xposition;
-								empty.style.top = yposition;
-								var inputString = Japanese+"<br><br>"+engDesc;
-								new Opentip(myInput, inputString, { style: "myStyle" });
-							}
-						}
-			  }
+				var personnumber = 1;
+				comments = data;
+				console.log(comments);
+			  };
 			  
-			   init(); 
-			
-				
-				
 				Opentip.styles.myStyle = {
-		
 				  extends: "alert",
 				  background: "444444",
 				  target: true,
@@ -77,17 +52,49 @@
 				  stem: true,
 				  borderWidth: 0,
 				};
-
+		    //});
+		
+			  function populate(data, person){
+					var labels = document.getElementById("labels");
+					//commentMarker.hide();
+						for (i = 0; i < data.length; i++) { 
+							if (data[i].Person == person) {								
+								current = data[i];
+								var div = document.createElement('div');
+								var node = document.createTextNode("This is new.");
+								div.class = "marker";
+								div.id = "id"+i;
+								currentid = "id"+i;
+								div.appendChild(node);
+								$("#labels").append(div);
+								var myInput = $("#"+currentid);
+								engDesc = current.English;
+								Japanese = current.Japanese;
+								var xposition = current.xposition+"%";
+								var yposition = current.yposition+"%";
+								var empty = document.getElementById(currentid);
+								empty.innerHTML = "<i class=\"marker-content fa fa-arrow-circle-down\" style=\"color:red\"></i>";
+								empty.style.position = "absolute";
+								empty.style.left = xposition;
+								empty.style.top = yposition;
+								var inputString = Japanese+"<br><br>"+engDesc;
+								var temp = new Opentip(myInput, inputString, { style: "myStyle" });
+								commentMarker.push(temp);
+							}
+						}
+						//alert(commentMarker);
+				};
 				
-
-		    });
-			
-	
-			
+		function changeImage(x) {
+			$("#maindrawing").attr("src",x.drawing);
+			$("#map2").attr("src",x.map);
+		};
+		
+		
+		init(); 
 		</script>
 		
 		<style>
-		
 			#drawing {
 				position:relative;
 				display:inline-block;
@@ -116,14 +123,52 @@
 						 -o-transform: translateX(-50%) translateY(-50%);
 							transform: translateX(-50%) translateY(-50%);
 				}
-
+			#navbar {
+			position: fixed;
+			left: 20px;
+			 z-index: 3;
+			}
+			
+			#map {
+			position: fixed;
+			right: 20px; bottom: 20px;
+			max-width: 250px;
+			height: auto;
+			}
+			
+			  body {
+				font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+				font-weight: 300;
+					}
 		</style>
   </head>
-  
-  <body>
+
+ <body>
+ <div id="navbar">
+ <h2>Sanriku Project 2013</h2>
+ Hover over  to view comments.</br>
+ Drawings by Sky Milner, done in collaboration with Urban Risk Lab.
+ 
+ <h3> Participants </h3>
+<a id="one" href="#" onclick="changeImage(person1); populate(comments, 1);">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person2); populate(comments, 2);">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person3); populate(comments, 3)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person4); populate(comments, 4)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person5); populate(comments, 5)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person6); populate(comments, 6)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person7); populate(comments, 7)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person8); populate(comments, 8)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person9); populate(comments, 9)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person10); populate(comments, 10)">11) Okamoto さん</a></br>
+<a id="one" href="#" onclick="changeImage(person11); populate(comments, 11)">11) Okamoto さん</a></br>
+ </div>
+ 
+ <div id="map">
+ <img id="map2" src=# alt=" " style="width: 100%;max-height: 100%" />
+ </div>
  
 	<div id="drawing">
-		<img src="./Drawing6_small.png">
+		<img id="maindrawing" src="./start.jpg">
 		<div class="markers" id="labels">
 				
 		</div>
