@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <title>Sheetsee Table Demo</title>
+    <title>Sanriku Project 2013</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<script type="text/javascript" src="./tabletop.js"></script>
 		<script type="text/javascript" src="./opentip-jquery.min.js"></script>
@@ -15,12 +15,12 @@
 			var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1qmMuUvHsRP7Jgs-x28lsTP3cqBF9p-i96Ra0_5qap0s/pubhtml';
 			var comments = {};
 			var commentMarker = [];
-			var person1 = {firstname:"Fiat", lastname:"", drawing:"Drawing1_small.png", map:"01-01.png"};
-			var person2 = {firstname:"Fiat", lastname:"", drawing:"Drawing2_small.png", map:"02-01.png"};
+			var person1 = {firstname:"Junpei", lastname:"Yamauchi", drawing:"Drawing1_small.png", map:"09-01.png"};
+			var person2 = {firstname:"Fiat", lastname:"", drawing:"Drawing2_small.png", map:"06-01.png"};
 			var person3 = {firstname:"Fiat", lastname:"", drawing:"Drawing3_small.png", map:"03-01.png"};
 			var person4 = {firstname:"Fiat", lastname:"", drawing:"Drawing4_small.png", map:"04-01.png"};
 			var person5 = {firstname:"Fiat", lastname:"", drawing:"Drawing5_small.png", map:"05-01.png"};
-			var person6 = {firstname:"Fiat", lastname:"", drawing:"Drawing6_small.png", map:"06-01.png"};
+			var person6 = {firstname:"Fiat", lastname:"", drawing:"Drawing6_small.png", map:"03-01.png"};
 			var person7 = {firstname:"Fiat", lastname:"", drawing:"Drawing7_small.png", map:"07-01.png"};
 			var person8 = {firstname:"Fiat", lastname:"", drawing:"Drawing8_small.png", map:"08-01.png"};
 			var person9 = {firstname:"Fiat", lastname:"", drawing:"Drawing9_small.png", map:"09-01.png"};
@@ -36,11 +36,7 @@
 			  };
 
 			  function showInfo(data) {		
-				var engDesc;
-				var Japanese;
-				var personnumber = 1;
 				comments = data;
-				console.log(comments);
 			  };
 			  
 				Opentip.styles.myStyle = {
@@ -55,7 +51,11 @@
 		    //});
 		
 			  function populate(data, person){
+					var engDesc;
+					var Japanese;
 					var labels = document.getElementById("labels");
+					
+					$( "#labels" ).empty();
 					//commentMarker.hide();
 						for (i = 0; i < data.length; i++) { 
 							if (data[i].Person == person) {								
@@ -73,7 +73,7 @@
 								var xposition = current.xposition+"%";
 								var yposition = current.yposition+"%";
 								var empty = document.getElementById(currentid);
-								empty.innerHTML = "<i class=\"marker-content fa fa-arrow-circle-down\" style=\"color:red\"></i>";
+								empty.innerHTML = "<i class=\"marker-content fa fa-arrow-circle-down\" id=\"blink\" ></i>";
 								empty.style.position = "absolute";
 								empty.style.left = xposition;
 								empty.style.top = yposition;
@@ -85,12 +85,29 @@
 						//alert(commentMarker);
 				};
 				
+				function descrip(data, person) {
+				for (i = 0; i < data.length; i++) { 
+							if (data[i].Person == person) {
+							$("#personName").text(data[i].Comment);
+							$("#summary").text(data[i].Desc);
+							$("#japanese").text(data[i].Japanese);
+							$("#english").text(data[i].English);
+							}
+							}
+				};
+				
 		function changeImage(x) {
 			$("#maindrawing").attr("src",x.drawing);
 			$("#map2").attr("src",x.map);
 		};
 		
-		
+		function switchPerson(data, person, desc, image) {
+			changeImage(image);
+			populate(data, person);
+		    descrip(data, desc);
+			console.log(desc);
+		};
+		 
 		init(); 
 		</script>
 		
@@ -127,6 +144,34 @@
 			position: fixed;
 			left: 20px;
 			 z-index: 3;
+			 width: 250px;
+			}
+			
+			#description {
+			position: fixed;
+			left: 280px;
+			width: 250px;
+			 z-index: 3;
+			}
+					
+					#blink {
+					
+				  -webkit-animation: colorchange 6s infinite; 
+  animation: 6s infinite colorchange;
+			}
+			@keyframes colorchange {
+0% {color: white;}
+50% {color: black;}
+100% {color: white;}
+}
+@-webkit-keyframes colorchange {
+0% {color: white;}
+50% {color: black;}
+100% {color: white;}
+}
+			
+			#blink:hover {
+			color: red;
 			}
 			
 			#map {
@@ -136,39 +181,63 @@
 			height: auto;
 			}
 			
-			  body {
-				font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-				font-weight: 300;
-					}
+		body {font-family:  Helvetica, Arial, sans-serif; color: grey;} 
+		h2 {font-size: 20px; color: black;}
+		h3 {font-size: 15px;}
+		p {font-size: 11px;}
+		a {font-size: 12px;}
+		a:link {text-decoration: none;}
+		a:visited {text-decoration: none; color: grey;}
+		a:hover {text-decoration: underline;}
+		a:active {text-decoration: underline;}
+		
 		</style>
   </head>
 
- <body>
- <div id="navbar">
- <h2>Sanriku Project 2013</h2>
- Hover over  to view comments.</br>
- Drawings by Sky Milner, done in collaboration with Urban Risk Lab.
+<body>
+<div id="navbar">
+<a href=#><h2>Sanriku Project 2013</br></h2></a>
+<p>
+Hover over arrows to view comments.</br>
+Conducted in collaboration with Urban Risk Lab.
+Site designed maintained by Sky Milner</p>
+
+
  
- <h3> Participants </h3>
-<a id="one" href="#" onclick="changeImage(person1); populate(comments, 1);">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person2); populate(comments, 2);">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person3); populate(comments, 3)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person4); populate(comments, 4)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person5); populate(comments, 5)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person6); populate(comments, 6)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person7); populate(comments, 7)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person8); populate(comments, 8)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person9); populate(comments, 9)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person10); populate(comments, 10)">11) Okamoto さん</a></br>
-<a id="one" href="#" onclick="changeImage(person11); populate(comments, 11)">11) Okamoto さん</a></br>
+<h3>Workshop Participants </h3>
+<a id="one" href="#" onclick="switchPerson(comments, 1, 'a1', person1);">1) 山内淳平さん</br>   Junpei Yamauchi</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 2, 'a2', person2);">2) 及川善祐さん</br>   Zenyu Oikawa</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 3, 'a3', person3);">3) 鈴木清美さん</br>   Kiyomi Suzuki</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 4, 'a4', person4);">4) 佐藤由美さん, 芳賀順子さん, 鈴木はつみさん</br>   Yumi Sato, Junko Haga, Hatsumi Suzuki</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 5, 'a5', person5);">5) 菅原学さん</br>   Manabu Sugawara</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 6, 'a6', person6);">6) 佐藤信一さん</br>   Shinichi Sato</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 7, 'a7', person7);">7) 高橋修さん</br>   Osamu Takahashi</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 8, 'a8', person8);">8) 後藤智則さん, 後藤エミさん</br>   Tomonori Goto, Emi Goto</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 9, 'a9', person9);">9) 及川善弥さん</br>   Zenya Oikawa</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 10, 'a10', person10);">10) 工藤真弓さん</br>   Mayumi Kudo</a></br>
+<a id="one" href="#" onclick="switchPerson(comments, 11, 'a11', person11);">11) 及川渉さん, 藤田岳さん</br>   Wataru Oikawa, Gack Fujita</a></br>
+ </br> <a href=#>Download Project PDF <i class="fa fa-file"></i></a>
  </div>
- 
+
+ <div id="description">
+ <h3 id="personName"></h3>
+<p id="summary"></p>
+<div><hr></div>
+<p id="japanese"></p>
+<p id="english"></p>
+</div>
  <div id="map">
  <img id="map2" src=# alt=" " style="width: 100%;max-height: 100%" />
  </div>
  
 	<div id="drawing">
-		<img id="maindrawing" src="./start.jpg">
+		<img id="maindrawing" src="./start.jpg" alt="" usemap="#Map" />
+		<map name="Map" id="Map">
+			<area href="#" onclick="switchPerson(comments, 1, 'a1', person1);" shape="poly" coords="68,28,96,170,586,120,586,61,453,12" />
+			<area href="#" onclick="switchPerson(comments, 1, 'a1', person1);" shape="rect" coords="782,1353,1823,247"	 />
+
+
+	</map>
 		<div class="markers" id="labels">
 				
 		</div>
