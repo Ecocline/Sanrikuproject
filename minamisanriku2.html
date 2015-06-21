@@ -1,0 +1,155 @@
+
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Sheetsee Table Demo</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript" src="tabletop.js"></script>
+		<script type="text/javascript" src="opentip-jquery.min.js"></script>
+		<link href="css/opentip.css" rel="stylesheet" type="text/css" />
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">	   
+		<script type="text/javascript">
+
+			$(function(){
+		
+			 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1qmMuUvHsRP7Jgs-x28lsTP3cqBF9p-i96Ra0_5qap0s/pubhtml';
+			 function init() {
+				Tabletop.init( { key: public_spreadsheet_url,
+								 callback: showInfo,
+								 simpleSheet: true,
+								parseNumbers: true
+								 } )
+			  }
+
+				
+			  function showInfo(data) {		
+				var engDesc;
+				var Japanese;
+				
+				var labels = document.getElementById("labels");
+				
+						for (i = 0; i < data.length; i++) { 
+						
+						var personnumber = 1;	
+						
+							if (data[i].Person == personnumber) {
+							
+								current = data[i];
+								var div = document.createElement('div');
+								var node = document.createTextNode("This is new.");
+								div.class = "marker";
+								div.id = "id"+i;
+								currentid = "id"+i;
+							
+								div.appendChild(node);
+								$("#labels").append(div);
+								
+								
+								var myInput = $("#"+currentid);
+								
+								engDesc = current.English;
+								Japanese = current.Japanese;
+								var xposition = current.xposition+"%";
+								var yposition = current.yposition+"%";
+								var empty = document.getElementById(currentid);
+								empty.innerHTML = "<i class=\"marker-content fa fa-arrow-circle-down\" style=\"color:white\"></i>";
+								empty.style.position = "absolute";
+								empty.style.left = xposition;
+								empty.style.top = yposition;
+								var inputString = Japanese+"<br><br>"+engDesc;
+								new Opentip(myInput, inputString, { style: "myStyle" });
+							}
+						}
+			  }
+			  
+			   init(); 
+			
+				
+				
+				Opentip.styles.myStyle = {
+		
+				  extends: "alert",
+				  background: "444444",
+				  target: true,
+				  delay: 0,
+				  showEffectDuration: 0,
+				  stem: true,
+				  borderWidth: 0,
+				};
+
+				
+
+		    });
+			
+
+
+			
+		</script>
+		
+		<style>
+		
+			#drawing {
+				position:relative;
+				display:inline-block;
+			}
+			
+			#drawing > img {
+				max-height: 100%;
+				max-width: 100%;
+				min-width: 800px;
+				width: auto;
+				height: auto;
+			}
+			
+			#drawing > .markers {
+				position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+			}
+
+				#drawing > .markers > .marker {
+					position: absolute;
+				}
+
+				#drawing > .markers > .marker > .marker-content {
+					-webkit-transform: translateX(-50%) translateY(-50%);
+					   -moz-transform: translateX(-50%) translateY(-50%);
+						-ms-transform: translateX(-50%) translateY(-50%);
+						 -o-transform: translateX(-50%) translateY(-50%);
+							transform: translateX(-50%) translateY(-50%);
+				}
+				
+				#key > img {
+				
+				max-width: 100%;
+				width: auto;
+				}
+				
+				#navbar{
+				position:absolute;
+				width: 250px;
+				left: 40px;
+				}
+		</style>
+  </head>
+  
+  <body>
+  <div id="navbar">
+
+	<div id="key">
+ 		<img src="01-01.png">
+	</div>
+
+
+
+ </div>
+	<div id="drawing">
+		<img id="my_image" src="Drawing5_small.png">
+		<div class="markers" id="labels">
+				
+		</div>
+	</div>
+	
+  </body>
+  
+</html>
+
