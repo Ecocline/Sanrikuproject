@@ -17,13 +17,13 @@
 			var commentMarker = [];
 			var person1 = {firstname:"Junpei", lastname:"Yamauchi", drawing:"Drawing1_small.png", map:"09-01.png"};
 			var person2 = {firstname:"Fiat", lastname:"", drawing:"Drawing2_small.png", map:"06-01.png"};
-			var person3 = {firstname:"Fiat", lastname:"", drawing:"Drawing3_small.png", map:"03-01.png"};
-			var person4 = {firstname:"Fiat", lastname:"", drawing:"Drawing4_small.png", map:"04-01.png"};
-			var person5 = {firstname:"Fiat", lastname:"", drawing:"Drawing5_small.png", map:"05-01.png"};
+			var person3 = {firstname:"Fiat", lastname:"", drawing:"Drawing3_small.png", map:"01-01.png"};
+			var person4 = {firstname:"Fiat", lastname:"", drawing:"Drawing4_small.png", map:"02-01.png"};
+			var person5 = {firstname:"Fiat", lastname:"", drawing:"Drawing5_small.png", map:"07-01.png"};
 			var person6 = {firstname:"Fiat", lastname:"", drawing:"Drawing6_small.png", map:"03-01.png"};
 			var person7 = {firstname:"Fiat", lastname:"", drawing:"Drawing7_small.png", map:"07-01.png"};
 			var person8 = {firstname:"Fiat", lastname:"", drawing:"Drawing8_small.png", map:"08-01.png"};
-			var person9 = {firstname:"Fiat", lastname:"", drawing:"Drawing9_small.png", map:"09-01.png"};
+			var person9 = {firstname:"Fiat", lastname:"", drawing:"Drawing9_small.png", map:"04-01.png"};
 			var person10 = {firstname:"Fiat", lastname:"", drawing:"Drawing10_small.png", map:"10-01.png"};
 			var person11 = {firstname:"Fiat", lastname:"", drawing:"Drawing11_small.png", map:"11-01.png"};
 			 
@@ -112,6 +112,8 @@
 		</script>
 		
 		<style>
+			div#preload { display: none; }
+	
 			#drawing {
 				position:relative;
 				display:inline-block;
@@ -140,6 +142,8 @@
 						 -o-transform: translateX(-50%) translateY(-50%);
 							transform: translateX(-50%) translateY(-50%);
 				}
+				
+
 			#navbar {
 			position: fixed;
 			left: 20px;
@@ -153,34 +157,32 @@
 			width: 250px;
 			 z-index: 3;
 			}
-					
-					#blink {
-					
-				  -webkit-animation: colorchange 6s infinite; 
-  animation: 6s infinite colorchange;
-			}
-			@keyframes colorchange {
-0% {color: white;}
-50% {color: black;}
-100% {color: white;}
-}
-@-webkit-keyframes colorchange {
-0% {color: white;}
-50% {color: black;}
-100% {color: white;}
-}
-			
-			#blink:hover {
-			color: red;
-			}
 			
 			#map {
 			position: fixed;
-			right: 20px; bottom: 20px;
+			left: 550px; 
 			max-width: 250px;
 			height: auto;
 			}
 			
+	
+					
+			#blink {	
+				  -webkit-animation: colorchange 6s infinite; 
+					animation: 6s infinite colorchange;
+					}
+					
+			@keyframes colorchange {
+				0% {color: white;}
+				50% {color: black;}
+				100% {color: white;}
+				}
+			@-webkit-keyframes colorchange {
+				0% {color: white;}
+				50% {color: black;}
+				100% {color: white;}
+				}
+	
 		body {font-family:  Helvetica, Arial, sans-serif; color: grey;} 
 		h2 {font-size: 20px; color: black;}
 		h3 {font-size: 15px;}
@@ -200,9 +202,7 @@
 <p>
 Hover over arrows to view comments.</br>
 Conducted in collaboration with Urban Risk Lab.
-Site designed maintained by Sky Milner</p>
-
-
+Site designed and maintained by Sky Milner</p>
  
 <h3>Workshop Participants </h3>
 <a id="one" href="#" onclick="switchPerson(comments, 1, 'a1', person1);">1) 山内淳平さん</br>   Junpei Yamauchi</a></br>
@@ -219,8 +219,8 @@ Site designed maintained by Sky Milner</p>
  </br> <a href=#>Download Project PDF <i class="fa fa-file"></i></a>
  </div>
 
- <div id="description">
- <h3 id="personName"></h3>
+<div id="description">
+<h3 id="personName"></h3>
 <p id="summary"></p>
 <div><hr></div>
 <p id="japanese"></p>
@@ -235,13 +235,27 @@ Site designed maintained by Sky Milner</p>
 		<map name="Map" id="Map">
 			<area href="#" onclick="switchPerson(comments, 1, 'a1', person1);" shape="poly" coords="68,28,96,170,586,120,586,61,453,12" />
 			<area href="#" onclick="switchPerson(comments, 1, 'a1', person1);" shape="rect" coords="782,1353,1823,247"	 />
-
-
 	</map>
 		<div class="markers" id="labels">
 				
 		</div>
 	</div>
+	
+	<div id="preload">
+   <img src="./Drawing1_small.png" width="1" height="1" alt="Image 01" />
+    <img src="./Drawing2_small.png" width="1" height="1" alt="Image 01" />
+	 <img src="./Drawing3_small.png" width="1" height="1" alt="Image 01" />
+	  <img src="./Drawing4_small.png" width="1" height="1" alt="Image 01" />
+	   <img src="./Drawing5_small.png" width="1" height="1" alt="Image 01" />
+	    <img src="./Drawing6_small.png" width="1" height="1" alt="Image 01" />
+		 <img src="./Drawing7_small.png" width="1" height="1" alt="Image 01" />
+		  <img src="./Drawing8_small.png" width="1" height="1" alt="Image 01" />
+		   <img src="./Drawing9_small.png" width="1" height="1" alt="Image 01" />
+		    <img src="./Drawing10_small.png" width="1" height="1" alt="Image 01" />
+		    <img src="./Drawing11_small.png" width="1" height="1" alt="Image 01" />
+   
+   
+</div>
 	
   </body>
   
